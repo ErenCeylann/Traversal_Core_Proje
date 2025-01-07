@@ -1,0 +1,67 @@
+﻿@model EntityLayer.Concrete.Reservation
+@{
+    ViewData["Title"] = "NewReservation";
+    Layout = "~/Views/Shared/_UserLayout.cshtml";
+}
+
+<h1>Yeni Rezervasyon Oluştur</h1>
+
+<form method="post">
+
+    <div class="form-group">
+        @Html.Label("Lokasyon")
+        @Html.DropDownListFor(x=>x.Destination,(List<SelectListItem>)ViewBag.v1,new {@class="form-control"})
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Kişi Sayısı")
+        <input type="number" asp-for="PersonCount" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Tarih")
+        <input type="date" asp-for="ReservationDate" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        @Html.Label("Eklemek İstedikleriniz")
+        <textarea rows="10" cols="10" class="form-control" asp-for="Description"></textarea>
+    </div>
+
+    <button class="btn btn-outline-success">Rezervasyon Yap</button>
+   
+</form>
+
+<div class="modal" id="md" >
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title text-danger">Değerli Üyemiz</h1>
+            </div>
+            <div class="modal-body">
+                <p style="font-size:large;">Rezervasyon işlemi yaptıktan sonra rezervasyon onay bekliyor şeklinde görükecektir.
+                Bu durum güncellenmektedir.
+                Bu durumun güncelliğini rezervasyonlarım sayfasından takip etmek için aşşağıdaki rezervasyonlarım
+                butonuna tıklayarak sayfaya ulaşabilirsiniz.
+                </p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-danger" id="kp" >Kapat</button>
+                <a href="/Member/Reservation/MyCurrentReservation" class="btn btn-info">Rezervasyonlarım</a>
+            </div>
+            
+        </div>
+        
+        
+    </div>
+</div>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script>
+    $(function () {
+        $("#md").fadeIn(1000);
+
+        $("#kp").click(function () {
+            $("#md").fadeOut(1000);
+        });
+    });
+</script>
